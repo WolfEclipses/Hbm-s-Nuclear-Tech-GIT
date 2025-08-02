@@ -159,6 +159,9 @@ public class ResourceManager {
 	//Arc Welder
 	public static final IModelCustom arc_welder = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/machines/arc_welder.obj"), false).asVBO();
 
+	//Router
+	public static final IModelCustom router = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/machines/router.obj")).asVBO();
+
 	//Solderer
 	public static final IModelCustom soldering_station = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/machines/soldering_station.obj"), false).asVBO();
 
@@ -593,6 +596,9 @@ public class ResourceManager {
 
 	//Welder
 	public static final ResourceLocation arc_welder_tex = new ResourceLocation(RefStrings.MODID, "textures/models/machines/arc_welder.png");
+
+	//Router
+	public static final ResourceLocation router_tex = new ResourceLocation(RefStrings.MODID, "textures/models/machines/router.png");
 
 	//Solderer
 	public static final ResourceLocation soldering_station_tex = new ResourceLocation(RefStrings.MODID, "textures/models/machines/soldering_station.png");

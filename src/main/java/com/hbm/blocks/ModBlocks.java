@@ -3309,7 +3309,7 @@ public class ModBlocks {
 		register(machine_fluidtank);
 		register(machine_bat9000);
 		register(machine_orbus);
-		GameRegistry.registerBlock(machine_router, machine_router.getUnlocalizedName());
+		register(machine_router);
 		GameRegistry.registerBlock(machine_boiler_off, machine_boiler_off.getUnlocalizedName());
 		register(machine_steam_engine);
 		register(machine_turbine);

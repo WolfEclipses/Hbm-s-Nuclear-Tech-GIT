@@ -28,7 +28,7 @@ public class MachineRouter extends BlockDummyable {
 
 	@Override
 	public int[] getDimensions() {
-		return new int[] {1, 0, 1, 0, 1, 1};
+		return new int[] {2, 0, 2, 0, 3, 0};
 	}
 
 	@Override
