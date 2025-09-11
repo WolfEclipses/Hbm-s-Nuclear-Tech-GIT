@@ -1,15 +1,12 @@
 ## Changed
-* Updated ukrainian, chinese and russian localization, including QMAW
-* Some previously hardcoded lang strings are now affected by translations
-* Due to severe issues with ticking order as well as a crash caused by certain tiles that uses threaded packets, Torcherino accelerator torches no longer affect NTM machines
-* RBMK control rod colors and auto control rod settings are now copiable
-* Murky wings no longer have slowfall, and using shift+space cancels the momentum
-* Murky wings are now slow by default and speed up when sprinting
-* The arc furnace can now be used with AE2 buses, which was previously not possible due to the unique stacksize limitations
+* Updated chinese localization
+* Added more QMAW manual pages
+* WIAJ presentations now use the same configurable keybind as QMAW
+  * Shift has to be held for the presentations, while F1 will open the standard QMAW page
+* Double UZIs no longer render weirdly when dropped
 
 ## Fixed
-* Fixed conveyor grabber dropping items off at an offset when placing them on a conveyor belt due to a client desync
-* Fixed occasional crash caused by using the settings tool on the autoloader
-* Fixed QMAW not correctly working with other languages
-* Fixed QMAW loading breaking entirely due to file encoding
-* Fixed PWR fuel rod textures being 18x18 instead of 16x16
+* Fixed fusion reactor item IO being broken
+* Fixed issue with the chemical factory where the declogging feature would be triggered by a recipe processor that doesn't even own the reported slot
+* Fixed the new PA not triggering the omega-12 achievement
+  * In addition to granting the achievement to nearby players on recipe completion, it is also granted when taking it out of the output slot
