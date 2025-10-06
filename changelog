@@ -1,10 +1,7 @@
 ## Changed
-* Added a (LEGACY) tag to the schrabidium transmutator
-* Existing schrabidium transmutators are now way slower
-  * get souped
-* Removed the schraranium tooltip mentioning the transmutator
-* Changed the last remaining recipes that use the old steel pipes item, as well as the recipe for the steel pipes
-  * Any remaining steel pipes can be either smelted in a crucible or shredded
+* VNT type explosions now track affected block positions when the explosion events fire, this should ensure compatibility with mods that rely on that
+  * For example, this should make ForgeCreeperHeal work with most of NTM's explosions
 
 ## Fixed
-* Fixed various issues with the localization
+* Fixed the T-51b set not having radiation resistance
+* Potentially fixed a crash on thermos -derived servers involving the flow control pumps
