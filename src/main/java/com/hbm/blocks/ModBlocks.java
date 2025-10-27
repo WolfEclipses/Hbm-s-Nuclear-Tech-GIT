@@ -341,6 +341,7 @@ public class ModBlocks {
 	public static Block brick_fire;
 
 	public static Block lightstone;
+	public static Block brick_forgotten;
 
 	public static Block concrete_slab;
 	public static Block concrete_double_slab;
@@ -427,30 +428,30 @@ public class ModBlocks {
 	public static Block steel_grate;
 	public static Block steel_grate_wide;
 
-	public static Block deco_pipe;
-	public static Block deco_pipe_rusted;
-	public static Block deco_pipe_green;
-	public static Block deco_pipe_green_rusted;
-	public static Block deco_pipe_red;
-	public static Block deco_pipe_marked;
-	public static Block deco_pipe_rim;
-	public static Block deco_pipe_rim_rusted;
-	public static Block deco_pipe_rim_green;
-	public static Block deco_pipe_rim_green_rusted;
-	public static Block deco_pipe_rim_red;
-	public static Block deco_pipe_rim_marked;
-	public static Block deco_pipe_framed;
-	public static Block deco_pipe_framed_rusted;
-	public static Block deco_pipe_framed_green;
-	public static Block deco_pipe_framed_green_rusted;
-	public static Block deco_pipe_framed_red;
-	public static Block deco_pipe_framed_marked;
-	public static Block deco_pipe_quad;
-	public static Block deco_pipe_quad_rusted;
-	public static Block deco_pipe_quad_green;
-	public static Block deco_pipe_quad_green_rusted;
-	public static Block deco_pipe_quad_red;
-	public static Block deco_pipe_quad_marked;
+	@Deprecated public static Block deco_pipe;
+	@Deprecated public static Block deco_pipe_rusted;
+	@Deprecated public static Block deco_pipe_green;
+	@Deprecated public static Block deco_pipe_green_rusted;
+	@Deprecated public static Block deco_pipe_red;
+	@Deprecated public static Block deco_pipe_marked;
+	@Deprecated public static Block deco_pipe_rim;
+	@Deprecated public static Block deco_pipe_rim_rusted;
+	@Deprecated public static Block deco_pipe_rim_green;
+	@Deprecated public static Block deco_pipe_rim_green_rusted;
+	@Deprecated public static Block deco_pipe_rim_red;
+	@Deprecated public static Block deco_pipe_rim_marked;
+	@Deprecated public static Block deco_pipe_framed;
+	@Deprecated public static Block deco_pipe_framed_rusted;
+	@Deprecated public static Block deco_pipe_framed_green;
+	@Deprecated public static Block deco_pipe_framed_green_rusted;
+	@Deprecated public static Block deco_pipe_framed_red;
+	@Deprecated public static Block deco_pipe_framed_marked;
+	@Deprecated public static Block deco_pipe_quad;
+	@Deprecated public static Block deco_pipe_quad_rusted;
+	@Deprecated public static Block deco_pipe_quad_green;
+	@Deprecated public static Block deco_pipe_quad_green_rusted;
+	@Deprecated public static Block deco_pipe_quad_red;
+	@Deprecated public static Block deco_pipe_quad_marked;
 
 	public static Block broadcaster_pc;
 	public static Block geiger;
@@ -458,11 +459,7 @@ public class ModBlocks {
 
 	public static Block fence_metal;
 
-	public static Block sand_boron;
-	public static Block sand_lead;
-	public static Block sand_uranium;
-	public static Block sand_polonium;
-	public static Block sand_quartz;
+	public static Block sand_mix;
 	public static Block ash_digamma;
 	public static Block glass_boron;
 	public static Block glass_lead;
@@ -728,10 +725,6 @@ public class ModBlocks {
 	public static Block hadron_coil_chlorophyte;
 	public static Block hadron_coil_mese;
 	public static Block hadron_power;
-	public static Block hadron_power_10m;
-	public static Block hadron_power_100m;
-	public static Block hadron_power_1g;
-	public static Block hadron_power_10g;
 	public static Block hadron_diode;
 	public static Block hadron_analysis;
 	public static Block hadron_analysis_glass;
@@ -774,6 +767,7 @@ public class ModBlocks {
 	public static Block red_cable_classic;
 	public static Block red_cable_paintable;
 	public static Block red_cable_gauge;
+	public static Block red_cable_box;
 	public static Block red_connector;
 	public static Block red_pylon;
 	public static Block red_pylon_medium_wood;
@@ -1560,6 +1554,7 @@ public class ModBlocks {
 		reinforced_ducrete = new BlockGeneric(Material.rock).setBlockName("reinforced_ducrete").setCreativeTab(MainRegistry.blockTab).setHardness(20.0F).setResistance(1000.0F).setBlockTextureName(RefStrings.MODID + ":reinforced_ducrete");
 
 		lightstone = new BlockLightstone(Material.rock, LightstoneType.class, true, true).setBlockName("lightstone").setCreativeTab(MainRegistry.blockTab).setHardness(2F).setResistance(15.0F).setBlockTextureName(RefStrings.MODID + ":lightstone");
+		brick_forgotten = new BlockPillar(Material.rock, RefStrings.MODID + ":brick_forgotten_top").setBlockName("brick_forgotten").setBlockUnbreakable().setResistance(666_666F).setBlockTextureName(RefStrings.MODID + ":brick_forgotten");
 
 		concrete_slab = new BlockMultiSlab(null, Material.rock, concrete_smooth, concrete, concrete_asbestos, ducrete_smooth, ducrete, asphalt).setBlockName("concrete_slab").setCreativeTab(MainRegistry.blockTab);
 		concrete_double_slab = new BlockMultiSlab(concrete_slab, Material.rock, concrete_smooth, concrete, concrete_asbestos, ducrete_smooth, ducrete, asphalt).setBlockName("concrete_double_slab").setCreativeTab(MainRegistry.blockTab);
@@ -1641,6 +1636,7 @@ public class ModBlocks {
 		steel_grate = new BlockGrate(Material.iron).setBlockName("steel_grate").setStepSound(ModSoundTypes.grate).setCreativeTab(MainRegistry.blockTab).setHardness(2.0F).setResistance(5.0F);
 		steel_grate_wide = new BlockGrate(Material.iron).setBlockName("steel_grate_wide").setStepSound(ModSoundTypes.grate).setCreativeTab(MainRegistry.blockTab).setHardness(2.0F).setResistance(5.0F);
 
+		//TODO: dear god
 		deco_pipe = new BlockPipe(Material.iron, RefStrings.MODID + ":pipe_side", 0).setBlockName("deco_pipe").setStepSound(ModSoundTypes.grate).setCreativeTab(MainRegistry.blockTab).setHardness(2.0F).setResistance(5.0F).setBlockTextureName(RefStrings.MODID + ":pipe_top");
 		deco_pipe_rusted = new BlockPipe(Material.iron, RefStrings.MODID + ":pipe_side_rusty", 0).setBlockName("deco_pipe_rusted").setStepSound(ModSoundTypes.grate).setCreativeTab(MainRegistry.blockTab).setHardness(2.0F).setResistance(5.0F).setBlockTextureName(RefStrings.MODID + ":pipe_top_rusty");
 		deco_pipe_green = new BlockPipe(Material.iron, RefStrings.MODID + ":pipe_side_green", 0).setBlockName("deco_pipe_green").setStepSound(ModSoundTypes.grate).setCreativeTab(MainRegistry.blockTab).setHardness(2.0F).setResistance(5.0F).setBlockTextureName(RefStrings.MODID + ":pipe_top_green");
@@ -1673,11 +1669,7 @@ public class ModBlocks {
 		fence_metal = new BlockMetalFence(Material.iron).setBlockName("fence_metal").setCreativeTab(MainRegistry.machineTab).setHardness(15.0F).setResistance(0.25F).setBlockTextureName(RefStrings.MODID + ":fence_metal");
 
 		ash_digamma = new BlockAshes(Material.sand).setBlockName("ash_digamma").setStepSound(Block.soundTypeSand).setCreativeTab(MainRegistry.machineTab).setHardness(0.5F).setResistance(150.0F).setBlockTextureName(RefStrings.MODID + ":ash_digamma");
-		sand_boron = new BlockFalling(Material.sand).setBlockName("sand_boron").setStepSound(Block.soundTypeSand).setCreativeTab(MainRegistry.machineTab).setHardness(0.5F).setBlockTextureName(RefStrings.MODID + ":sand_boron");
-		sand_lead = new BlockFalling(Material.sand).setBlockName("sand_lead").setStepSound(Block.soundTypeSand).setCreativeTab(MainRegistry.machineTab).setHardness(0.5F).setBlockTextureName(RefStrings.MODID + ":sand_lead");
-		sand_uranium = new BlockFalling(Material.sand).setBlockName("sand_uranium").setStepSound(Block.soundTypeSand).setCreativeTab(MainRegistry.machineTab).setHardness(0.5F).setBlockTextureName(RefStrings.MODID + ":sand_uranium");
-		sand_polonium = new BlockFalling(Material.sand).setBlockName("sand_polonium").setStepSound(Block.soundTypeSand).setCreativeTab(MainRegistry.machineTab).setHardness(0.5F).setBlockTextureName(RefStrings.MODID + ":sand_polonium");
-		sand_quartz = new BlockFalling(Material.sand).setBlockName("sand_quartz").setStepSound(Block.soundTypeSand).setCreativeTab(MainRegistry.machineTab).setHardness(0.5F).setBlockTextureName(RefStrings.MODID + ":sand_quartz");
+		sand_mix = new BlockNTMSand(Material.sand).setBlockName("sand_mix").setStepSound(Block.soundTypeSand).setCreativeTab(MainRegistry.machineTab).setHardness(0.5F);
 		glass_boron = new BlockNTMGlassCT(0, RefStrings.MODID + ":glass_boron", Material.glass).setBlockName("glass_boron").setStepSound(Block.soundTypeGlass).setCreativeTab(MainRegistry.machineTab).setHardness(0.3F);
 		glass_lead = new BlockNTMGlassCT(0, RefStrings.MODID + ":glass_lead", Material.glass).setBlockName("glass_lead").setStepSound(Block.soundTypeGlass).setCreativeTab(MainRegistry.machineTab).setHardness(0.3F);
 		glass_uranium = new BlockNTMGlassCT(1, RefStrings.MODID + ":glass_uranium", Material.glass).setBlockName("glass_uranium").setLightLevel(5F/15F).setStepSound(Block.soundTypeGlass).setCreativeTab(MainRegistry.machineTab).setHardness(0.3F);
@@ -1860,11 +1852,7 @@ public class ModBlocks {
 		hadron_coil_starmetal = new BlockHadronCoil(Material.iron, 1000).setStepSound(Block.soundTypeMetal).setBlockName("hadron_coil_starmetal").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":hadron_coil_starmetal");
 		hadron_coil_chlorophyte = new BlockHadronCoil(Material.iron, 2500).setStepSound(Block.soundTypeMetal).setBlockName("hadron_coil_chlorophyte").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":hadron_coil_chlorophyte");
 		hadron_coil_mese = new BlockHadronCoil(Material.iron, 10000).setStepSound(Block.soundTypeMetal).setBlockName("hadron_coil_mese").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":hadron_coil_mese");
-		hadron_power = new BlockHadronPower(Material.iron, 1000000L).setStepSound(Block.soundTypeMetal).setBlockName("hadron_power").setHardness(5.0F).setResistance(10.0F).setCreativeTab(null).setBlockTextureName(RefStrings.MODID + ":hadron_power");
-		hadron_power_10m = new BlockHadronPower(Material.iron, 10000000L).setStepSound(Block.soundTypeMetal).setBlockName("hadron_power_10m").setHardness(5.0F).setResistance(10.0F).setCreativeTab(null).setBlockTextureName(RefStrings.MODID + ":hadron_power");
-		hadron_power_100m = new BlockHadronPower(Material.iron, 100000000L).setStepSound(Block.soundTypeMetal).setBlockName("hadron_power_100m").setHardness(5.0F).setResistance(10.0F).setCreativeTab(null).setBlockTextureName(RefStrings.MODID + ":hadron_power");
-		hadron_power_1g = new BlockHadronPower(Material.iron, 1000000000L).setStepSound(Block.soundTypeMetal).setBlockName("hadron_power_1g").setHardness(5.0F).setResistance(10.0F).setCreativeTab(null).setBlockTextureName(RefStrings.MODID + ":hadron_power");
-		hadron_power_10g = new BlockHadronPower(Material.iron, 10000000000L).setStepSound(Block.soundTypeMetal).setBlockName("hadron_power_10g").setHardness(5.0F).setResistance(10.0F).setCreativeTab(null).setBlockTextureName(RefStrings.MODID + ":hadron_power");
+		hadron_power = new BlockHadronPower(Material.iron, 10000000000L).setStepSound(Block.soundTypeMetal).setBlockName("hadron_power").setHardness(5.0F).setResistance(10.0F).setCreativeTab(null).setBlockTextureName(RefStrings.MODID + ":hadron_power");
 		hadron_diode = new BlockHadronDiode(Material.iron).setStepSound(Block.soundTypeMetal).setBlockName("hadron_diode").setHardness(5.0F).setResistance(10.0F).setCreativeTab(null);
 		hadron_analysis = new BlockHadronPlating(Material.iron).setStepSound(Block.soundTypeMetal).setBlockName("hadron_analysis").setHardness(5.0F).setResistance(10.0F).setCreativeTab(null).setBlockTextureName(RefStrings.MODID + ":hadron_analysis");
 		hadron_analysis_glass = new BlockNTMGlass(0, RefStrings.MODID + ":hadron_analysis_glass", Material.iron, true).setStepSound(Block.soundTypeMetal).setBlockName("hadron_analysis_glass").setHardness(5.0F).setResistance(10.0F).setCreativeTab(null).setBlockTextureName(RefStrings.MODID + ":hadron_analysis_glass");
@@ -1920,6 +1908,7 @@ public class ModBlocks {
 		red_cable_classic = new BlockCable(Material.iron).setBlockName("red_cable_classic").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":red_cable_classic");
 		red_cable_paintable = new BlockCablePaintable().setBlockName("red_cable_paintable").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab);
 		red_cable_gauge = new BlockCableGauge().setBlockName("red_cable_gauge").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab);
+		red_cable_box = new PowerCableBox(Material.iron).setBlockName("red_cable_box").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":fluid_duct_box");
 		red_connector = new ConnectorRedWire(Material.iron).setBlockName("red_connector").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":red_connector");
 		red_pylon = new PylonRedWire(Material.iron).setBlockName("red_pylon").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":red_pylon");
 		red_pylon_medium_wood = new PylonMedium(Material.wood).setBlockName("red_pylon_medium_wood").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":red_pylon");
@@ -2745,6 +2734,8 @@ public class ModBlocks {
 		register(stones_slab, ItemModSlab.class);
 		register(stones_double_slab, ItemModSlab.class);
 
+		register(brick_forgotten);
+
 		GameRegistry.registerBlock(concrete_slab, ItemModSlab.class, concrete_slab.getUnlocalizedName());
 		GameRegistry.registerBlock(concrete_double_slab, ItemModSlab.class, concrete_double_slab.getUnlocalizedName());
 		GameRegistry.registerBlock(concrete_brick_slab, ItemModSlab.class, concrete_brick_slab.getUnlocalizedName());
@@ -2837,6 +2828,13 @@ public class ModBlocks {
 		GameRegistry.registerBlock(steel_grate, steel_grate.getUnlocalizedName());
 		register(steel_grate_wide);
 		//register(scaffold_dynamic);
+		/*
+		 * operation: pipe annihilation
+		 * each pipe has three rotations, and there's four shapes, so in theory, we only need 12 metas
+		 * which leaves color, but that's the least bad thing to break due to tile syncing issues, so we
+		 * can handle that using tile entities. it's unlikely that we add new shapes or invent new spacial
+		 * axis to align them to, so it's also the easiest to extend
+		 */
 		GameRegistry.registerBlock(deco_pipe, ItemBlockBase.class, deco_pipe.getUnlocalizedName());
 		GameRegistry.registerBlock(deco_pipe_rusted, ItemBlockBase.class, deco_pipe_rusted.getUnlocalizedName());
 		GameRegistry.registerBlock(deco_pipe_green, ItemBlockBase.class, deco_pipe_green.getUnlocalizedName());
@@ -3002,11 +3000,7 @@ public class ModBlocks {
 
 		//Sands, Glass
 		GameRegistry.registerBlock(ash_digamma, ash_digamma.getUnlocalizedName());
-		GameRegistry.registerBlock(sand_boron, sand_boron.getUnlocalizedName());
-		GameRegistry.registerBlock(sand_lead, sand_lead.getUnlocalizedName());
-		GameRegistry.registerBlock(sand_uranium, sand_uranium.getUnlocalizedName());
-		GameRegistry.registerBlock(sand_polonium, sand_polonium.getUnlocalizedName());
-		GameRegistry.registerBlock(sand_quartz, sand_quartz.getUnlocalizedName());
+		register(sand_mix);
 		GameRegistry.registerBlock(glass_boron, glass_boron.getUnlocalizedName());
 		GameRegistry.registerBlock(glass_lead, glass_lead.getUnlocalizedName());
 		GameRegistry.registerBlock(glass_uranium, glass_uranium.getUnlocalizedName());
@@ -3160,10 +3154,6 @@ public class ModBlocks {
 		GameRegistry.registerBlock(hadron_coil_chlorophyte, ItemBlockBase.class, hadron_coil_chlorophyte.getUnlocalizedName());
 		GameRegistry.registerBlock(hadron_coil_mese, ItemBlockBase.class, hadron_coil_mese.getUnlocalizedName());
 		GameRegistry.registerBlock(hadron_power, hadron_power.getUnlocalizedName());
-		GameRegistry.registerBlock(hadron_power_10m, hadron_power_10m.getUnlocalizedName());
-		GameRegistry.registerBlock(hadron_power_100m, hadron_power_100m.getUnlocalizedName());
-		GameRegistry.registerBlock(hadron_power_1g, hadron_power_1g.getUnlocalizedName());
-		GameRegistry.registerBlock(hadron_power_10g, hadron_power_10g.getUnlocalizedName());
 		GameRegistry.registerBlock(hadron_diode, hadron_diode.getUnlocalizedName());
 		GameRegistry.registerBlock(hadron_analysis, hadron_analysis.getUnlocalizedName());
 		GameRegistry.registerBlock(hadron_analysis_glass, hadron_analysis_glass.getUnlocalizedName());
@@ -3208,6 +3198,7 @@ public class ModBlocks {
 		GameRegistry.registerBlock(red_cable_classic, red_cable_classic.getUnlocalizedName());
 		GameRegistry.registerBlock(red_cable_paintable, red_cable_paintable.getUnlocalizedName());
 		register(red_cable_gauge);
+		register(red_cable_box);
 		GameRegistry.registerBlock(red_wire_coated, red_wire_coated.getUnlocalizedName());
 		GameRegistry.registerBlock(red_connector, ItemBlockBase.class, red_connector.getUnlocalizedName());
 		GameRegistry.registerBlock(red_pylon, ItemBlockBase.class, red_pylon.getUnlocalizedName());
@@ -3221,7 +3212,7 @@ public class ModBlocks {
 		GameRegistry.registerBlock(cable_detector, cable_detector.getUnlocalizedName());
 		GameRegistry.registerBlock(cable_diode, ItemBlockBase.class, cable_diode.getUnlocalizedName());
 		GameRegistry.registerBlock(machine_detector, machine_detector.getUnlocalizedName());
-		
+
 		register(fluid_duct_neo);
 		register(fluid_duct_box);
 		register(fluid_duct_exhaust);
