@@ -1,17 +1,10 @@
-## Added
-* Boxcables
-  * Like boxducts, but for power
-
 ## Changed
-* Updated meteors
-  * Meteors will now punch through weak blocks like leaves instead of getting stuck on trees
-  * Meteor impacts now have new visuals
-  * Falling meteors will produce a sound instead of stealthily blowing people up
-  * Fallen meteors will now be placed deeper into the actual crater instead of hovering awkwardly over the hole
-* Addd QMAW pages for the particle accelerator parts along with a PA overview page and a simple step by step construction tutorial
-* Increased the acidizer partitioner's input limit from 9 to 45 slots
+* After not being part of worldgen for a long time, oily coal is finally being removed
+* The rare metal blocks that had been unobtainable and unused for the longest time have been removed
+* The schrabidium transmutator's grace period is over, it is finally being destroyed
+* Most of the legacy fusion reactor components, which were unobtainable and unusable, have been removed
+  * The block ID economy is looking better than ever
 
 ## Fixed
-* Fixed arc furnace only allowing electrodes to be inserted when the lid is down instead of up
-* Fixed issue where the `amounts` tracker wasn't being used correctly when using a custom acidizer config, preventing the acidizer partitioner from working
-* Fixed multi fluid ID search potentially not working on systems with a non-latin locale
+* Fixed meteors using a nonexistant keepalive timer, causing potential audio flickering in certain cases
+* Fixed 528 coltan deposit config misspelling

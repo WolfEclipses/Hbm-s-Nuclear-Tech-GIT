@@ -30,8 +30,6 @@ public class EntityMeteor extends Entity {
 		this.ignoreFrustumCheck = true;
 		this.isImmuneToFire = true;
 		this.setSize(4F, 4F);
-		if(worldObj.isRemote)
-			this.audioFly = MainRegistry.proxy.getLoopedSound("hbm:entity.meteoriteFallingLoop", 0, 0, 0, 1F, 100F, 0.9F + this.rand.nextFloat() * 0.2F, 0);
 	}
 
 	public List<BlockPos> getBlocksInRadius(World world, int x, int y, int z, int radius) {
@@ -114,7 +112,7 @@ public class EntityMeteor extends Entity {
 				worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 5 + rand.nextFloat(), !safe);
 
 				if(WorldConfig.enableMeteorTails) {
-					ExplosionLarge.spawnRubble(worldObj, this.posX, this.posY, this.posZ, 25);
+					ExplosionLarge.spawnRubble(worldObj, this.posX, this.posY, this.posZ, 15);
 
 					ExplosionLarge.spawnParticles(worldObj, posX, posY + 5, posZ, 75);
 					ExplosionLarge.spawnParticles(worldObj, posX + 5, posY, posZ, 75);
@@ -144,17 +142,19 @@ public class EntityMeteor extends Entity {
 				if(this.audioFly != null) this.audioFly.stopSound();
 				
 			} else {
+				
+				if(this.audioFly == null) this.audioFly = MainRegistry.proxy.getLoopedSound("hbm:entity.meteoriteFallingLoop", 0, 0, 0, 1F, 200F, 0.9F + this.rand.nextFloat() * 0.2F, 10);
 	
 				if(this.audioFly.isPlaying()) {
 					// Update sound
 					this.audioFly.keepAlive();
 					this.audioFly.updateVolume(1F);
-					this.audioFly.updatePosition((int) this.posX, (int) this.posY, (int) this.posZ);
+					this.audioFly.updatePosition((float) this.posX, (float) (this.posY + this.height / 2), (float) this.posZ);
 				} else {
 					// Start playing the sound
 					EntityPlayer player = MainRegistry.proxy.me();
 					double distance = player.getDistanceSq(this.posX, this.posY, this.posZ);
-					if(distance < 110 * 110) {
+					if(distance < 210 * 210) {
 						this.audioFly.startSound();
 					}
 				}

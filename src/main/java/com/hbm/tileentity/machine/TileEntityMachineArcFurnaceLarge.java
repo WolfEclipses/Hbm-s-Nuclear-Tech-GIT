@@ -113,8 +113,8 @@ public class TileEntityMachineArcFurnaceLarge extends TileEntityMachineBase impl
 			this.isProgressing = false;
 
 			for(DirPos pos : getConPos()) this.trySubscribe(worldObj, pos.getX(), pos.getY(), pos.getZ(), pos.getDir());
-			
-			if(lid == 1) loadIngredients();
+
+			if(lid > 0) loadIngredients();
 
 			if(power > 0) {
 
@@ -269,21 +269,23 @@ public class TileEntityMachineArcFurnaceLarge extends TileEntityMachineBase impl
 			}
 		}
 	}
-	
+
 	/** Moves items from the input queue to the main grid */
 	public void loadIngredients() {
-		
+
 		boolean markDirty = false;
-		
+
 		for(int q /* queue */ = 25; q < 30; q++) {
 			if(slots[q] == null) continue;
 			ArcFurnaceRecipe recipe = ArcFurnaceRecipes.getOutput(slots[q], this.liquidMode);
 			if(recipe == null) continue;
-			
+			int max = this.getMaxInputSize();
+			int recipeMax = this.liquidMode ? max : slots[q].getMaxStackSize() / recipe.solidOutput.stackSize;
+			max = Math.min(max, recipeMax);
+
 			// add to existing stacks
 			for(int i /* ingredient */ = 5; i < 25; i++) {
 				if(slots[i] == null) continue;
-				int max = this.getMaxInputSize();
 				if(!slots[q].isItemEqual(slots[i])) continue;
 				int toMove = BobMathUtil.min(slots[i].getMaxStackSize() - slots[i].stackSize, slots[q].stackSize, max - slots[i].stackSize);
 				if(toMove > 0) {
@@ -293,11 +295,10 @@ public class TileEntityMachineArcFurnaceLarge extends TileEntityMachineBase impl
 				}
 				if(slots[q] == null) break;
 			}
-			
+
 			// add to empty slot
 			if(slots[q] != null) for(int i /* ingredient */ = 5; i < 25; i++) {
 				if(slots[i] != null) continue;
-				int max = this.getMaxInputSize();
 				int toMove = Math.min(max, slots[q].stackSize);
 				slots[i] = slots[q].copy();
 				slots[i].stackSize = toMove;
@@ -306,7 +307,7 @@ public class TileEntityMachineArcFurnaceLarge extends TileEntityMachineBase impl
 				if(slots[q] == null) break;
 			}
 		}
-		
+
 		if(markDirty) this.markDirty();
 	}
 

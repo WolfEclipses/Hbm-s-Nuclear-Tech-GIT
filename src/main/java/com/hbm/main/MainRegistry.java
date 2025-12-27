@@ -226,7 +226,6 @@ public class MainRegistry {
 	public static Achievement achBismuth;
 	public static Achievement achBreeding;
 	public static Achievement achFusion;
-	public static Achievement achMeltdown;
 
 	public static int generalOverride = 0;
 	public static int polaroidID = 1;
@@ -305,6 +304,7 @@ public class MainRegistry {
 		aMatSecurity.customCraftingMaterial = ModItems.plate_kevlar;
 		aMatCobalt.customCraftingMaterial = ModItems.ingot_cobalt;
 		aMatStarmetal.customCraftingMaterial = ModItems.ingot_starmetal;
+		aMatBismuth.customCraftingMaterial = ModItems.plate_bismuth;
 		tMatSchrab.setRepairItem(new ItemStack(ModItems.ingot_schrabidium));
 		tMatHammmer.setRepairItem(new ItemStack(Item.getItemFromBlock(ModBlocks.block_schrabidium)));
 		tMatChainsaw.setRepairItem(new ItemStack(ModItems.ingot_steel));
@@ -441,7 +441,6 @@ public class MainRegistry {
 		achBismuth = new Achievement("achievement.bismuth", "bismuth", 11, -6, ModItems.ingot_bismuth, achRBMK).initIndependentStat().registerStat();
 		achBreeding = new Achievement("achievement.breeding", "breeding", 7, -6, ModItems.ingot_am_mix, achRBMK).initIndependentStat().setSpecial().registerStat();
 		achFusion = new Achievement("achievement.fusion", "fusion", 13, -7, new ItemStack(ModBlocks.iter), achBismuth).initIndependentStat().setSpecial().registerStat();
-		achMeltdown = new Achievement("achievement.meltdown", "meltdown", 15, -7, ModItems.powder_balefire, achFusion).initIndependentStat().setSpecial().registerStat();
 		achRedBalloons = new Achievement("achievement.redBalloons", "redBalloons", 11, 0, ModItems.missile_nuclear, achPolymer).initIndependentStat().setSpecial().registerStat();
 		achManhattan = new Achievement("achievement.manhattan", "manhattan", 11, -4, new ItemStack(ModBlocks.nuke_boy), achPolymer).initIndependentStat().setSpecial().registerStat();
 
@@ -507,7 +506,6 @@ public class MainRegistry {
 			achBismuth,
 			achBreeding,
 			achFusion,
-			achMeltdown,
 			achRedBalloons,
 			achManhattan
 		}));
@@ -554,7 +552,6 @@ public class MainRegistry {
 		MagicRecipes.register();
 		LemegetonRecipes.register();
 		SILEXRecipes.register();
-		RefineryRecipes.registerRefinery();
 		GasCentrifugeRecipes.register();
 
 		CustomMachineConfigJSON.initialize();
@@ -1441,6 +1438,36 @@ public class MainRegistry {
 		ignoreMappings.add("hbm:tile.hadron_power_100m");
 		ignoreMappings.add("hbm:tile.hadron_power_1g");
 		ignoreMappings.add("hbm:tile.hadron_power_10g");
+		ignoreMappings.add("hbm:item.bob_metalworks");
+		ignoreMappings.add("hbm:item.bob_assembly");
+		ignoreMappings.add("hbm:item.bob_chemistry");
+		ignoreMappings.add("hbm:item.bob_oil");
+		ignoreMappings.add("hbm:item.bob_nuclear");
+		ignoreMappings.add("hbm:item.multitool_hit");
+		ignoreMappings.add("hbm:item.multitool_dig");
+		ignoreMappings.add("hbm:item.multitool_silk");
+		ignoreMappings.add("hbm:item.multitool_ext");
+		ignoreMappings.add("hbm:item.multitool_miner");
+		ignoreMappings.add("hbm:item.multitool_beam");
+		ignoreMappings.add("hbm:item.multitool_sky");
+		ignoreMappings.add("hbm:item.multitool_mega");
+		ignoreMappings.add("hbm:item.multitool_joule");
+		ignoreMappings.add("hbm:item.multitool_decon");
+		ignoreMappings.add("hbm:tile.struct_iter_core");
+		ignoreMappings.add("hbm:tile.struct_plasma_core");
+		ignoreMappings.add("hbm:tile.machine_amgen");
+		ignoreMappings.add("hbm:tile.machine_geo");
+		ignoreMappings.add("hbm:tile.ore_coal_oil");
+		ignoreMappings.add("hbm:tile.ore_coal_oil_burning");
+		ignoreMappings.add("hbm:tile.block_weidanium");
+		ignoreMappings.add("hbm:tile.block_reiium");
+		ignoreMappings.add("hbm:tile.block_unobtainium");
+		ignoreMappings.add("hbm:tile.block_daffergon");
+		ignoreMappings.add("hbm:tile.block_verticium");
+		ignoreMappings.add("hbm:tile.machine_schrabidium_transmutator");
+		ignoreMappings.add("hbm:tile.fusion_conductor");
+		ignoreMappings.add("hbm:tile.fusion_center");
+		ignoreMappings.add("hbm:tile.fusion_motor");
 
 		/// REMAP ///
 		remapItems.put("hbm:item.gadget_explosive8", ModItems.early_explosive_lenses);

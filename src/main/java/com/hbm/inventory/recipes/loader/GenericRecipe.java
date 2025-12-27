@@ -59,7 +59,18 @@ public class GenericRecipe {
 	public GenericRecipe setIcon(Item item) { return this.setIcon(new ItemStack(item)); }
 	public GenericRecipe setIcon(Block block) { return this.setIcon(new ItemStack(block)); }
 	public GenericRecipe setNamed() { this.customLocalization = true; return this; }
-	public GenericRecipe setPools(String... pools) { this.blueprintPools = pools; for(String pool : pools) GenericRecipes.addToPool(pool, this); return this; }
+	
+	public GenericRecipe setPools(String... pools) { 
+		this.blueprintPools = pools;
+		for(String pool : pools) {
+			if(!GeneralConfig.enable528 && pool.startsWith(GenericRecipes.POOL_PREFIX_528)) throw new IllegalArgumentException("Tried initializing a recipe's default blueprint pool with a 528 blueprint - this is not allowed.");
+			GenericRecipes.addToPool(pool, this);
+		}
+		return this;
+	}
+	/** Only for recipe configs - same as regular except the anti 528 check doesn't exist */
+	public GenericRecipe setPoolsAllow528(String... pools) { this.blueprintPools = pools; for(String pool : pools) GenericRecipes.addToPool(pool, this); return this; }
+	public GenericRecipe setPools528(String... pools) { if(GeneralConfig.enable528) { this.blueprintPools = pools; for(String pool : pools) GenericRecipes.addToPool(pool, this); } return this; }
 	public GenericRecipe setGroup(String autoSwitch, GenericRecipes set) { this.autoSwitchGroup = autoSwitch; set.addToGroup(autoSwitch, this); return this; }
 
 	public GenericRecipe inputItems(AStack... input) { this.inputItem = input; for(AStack stack : this.inputItem) if(stack.stacksize > 64) throw new IllegalArgumentException("AStack in " + this.name + " exceeds stack limit!"); return this; }
@@ -116,32 +127,45 @@ public class GenericRecipe {
 		List<String> list = new ArrayList();
 		list.add(EnumChatFormatting.YELLOW + this.getLocalizedName());
 
-		// autoswitch group
+		autoSwitch(list);
+		duration(list);
+		power(list);
+		input(list);
+		output(list);
+
+		return list;
+	}
+	
+	protected void autoSwitch(List<String> list) {
 		if(this.autoSwitchGroup != null) {
 			String[] lines = I18nUtil.resolveKeyArray("autoswitch", I18nUtil.resolveKey(this.autoSwitchGroup));
 			for(String line : lines) list.add(EnumChatFormatting.GOLD + line);
 		}
-
-		// duration (seconds)
+	}
+	
+	protected void duration(List<String> list) {
 		if(duration > 0) {
 			double seconds = this.duration / 20D;
 			list.add(EnumChatFormatting.RED + I18nUtil.resolveKey("gui.recipe.duration") + ": " + seconds + "s");
 		}
-
-		// power / consumption
+	}
+	
+	protected void power(List<String> list) {
 		if(power > 0) {
 			list.add(EnumChatFormatting.RED + I18nUtil.resolveKey("gui.recipe.consumption") + ": " + BobMathUtil.getShortNumber(power) + "HE/t");
 		}
+	}
 
-		// input label + items
+	protected void input(List<String> list) {
 		list.add(EnumChatFormatting.BOLD + I18nUtil.resolveKey("gui.recipe.input") + ":");
 		if(inputItem != null) for(AStack stack : inputItem) {
 			ItemStack display = stack.extractForCyclingDisplay(20);
 			list.add("  " + EnumChatFormatting.GRAY + display.stackSize + "x " + display.getDisplayName());
 		}
 		if (inputFluid != null) for (FluidStack fluid : inputFluid) list.add("  " + EnumChatFormatting.BLUE + fluid.fill + "mB " + fluid.type.getLocalizedName() + (fluid.pressure == 0 ? "" : " " + I18nUtil.resolveKey("gui.recipe.atPressure") + " " + EnumChatFormatting.RED + fluid.pressure + " PU"));
+	}
 
-		// output label + items
+	protected void output(List<String> list) {
 		list.add(EnumChatFormatting.BOLD + I18nUtil.resolveKey("gui.recipe.output") + ":");
 		if(outputItem != null) for(IOutput output : outputItem)
 			for(String line : output.getLabel()) list.add("  " + line);
@@ -150,8 +174,6 @@ public class GenericRecipe {
 				" " + I18nUtil.resolveKey("gui.recipe.atPressure") + " " + EnumChatFormatting.RED + fluid.pressure + " PU";
 			list.add("  " + EnumChatFormatting.BLUE + fluid.fill + "mB " + fluid.type.getLocalizedName() + pressurePart);
 		}
-
-		return list;
 	}
 
 
