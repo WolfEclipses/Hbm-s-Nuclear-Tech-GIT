@@ -6,20 +6,19 @@ import com.hbm.blocks.BlockDummyable;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.main.ResourceManager;
 import com.hbm.render.item.ItemRenderBase;
+import com.hbm.tileentity.machine.TileEntityMachineRouter;
 
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.IItemRenderer;
 
 public class RenderRouter extends TileEntitySpecialRenderer  implements IItemRendererProvider{
-
-	public static EntityItem dummy;
 	
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float interp) {
+
 		GL11.glPushMatrix();
 		GL11.glTranslated(x + 0.5D, y, z + 0.5D);
 		GL11.glEnable(GL11.GL_LIGHTING);
@@ -31,8 +30,33 @@ public class RenderRouter extends TileEntitySpecialRenderer  implements IItemRen
 		case 5: GL11.glRotatef(0, 0F, 1F, 0F); break;
 		case 2: GL11.glRotatef(90, 0F, 1F, 0F); break;
 		}
+		TileEntityMachineRouter rout = (TileEntityMachineRouter) tile;
 		
-		GL11.glShadeModel(GL11.GL_SMOOTH);
+		bindTexture(ResourceManager.router_tex);
+		ResourceManager.router.renderPart("Base");
+
+		GL11.glPushMatrix(); {
+			ResourceManager.router.renderPart("Crossbar");
+			ResourceManager.router.renderPart("Sliders");
+			ResourceManager.router.renderPart("RouterBit");
+		} 
+		GL11.glPopMatrix();
+
+		GL11.glPushMatrix();
+		rout.isOn = true;
+		if(rout.isOn) {
+			RenderArcFurnace.fullbright(true);
+			ResourceManager.router.renderPart("LightBars");
+			RenderArcFurnace.fullbright(false);
+		} else {
+			GL11.glColor4f(0.25F, 0.25F, 0.25F, 1F);
+			ResourceManager.router.renderPart("LightBars");
+			GL11.glColor4f(1F, 1F, 1F, 1F);
+		} 
+		GL11.glPopMatrix();
+		
+		GL11.glShadeModel(GL11.GL_FLAT);
+
 		bindTexture(ResourceManager.router_tex);
 		ResourceManager.router.renderAll();
 		GL11.glShadeModel(GL11.GL_FLAT);
@@ -55,7 +79,6 @@ public class RenderRouter extends TileEntitySpecialRenderer  implements IItemRen
 				GL11.glScaled(4.5, 4.5, 4.5);
 			}
 			public void renderCommonWithStack(ItemStack item) {
-				//GL11.glRotated(90, 0, 1, 0);
 				GL11.glScaled(0.63, 0.63, 0.63);
 				GL11.glShadeModel(GL11.GL_SMOOTH);
 				bindTexture(ResourceManager.router_tex);

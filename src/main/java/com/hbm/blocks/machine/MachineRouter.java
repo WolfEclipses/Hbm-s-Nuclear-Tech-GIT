@@ -7,6 +7,7 @@ import com.hbm.tileentity.machine.TileEntityMachineRouter;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class MachineRouter extends BlockDummyable {
@@ -35,4 +36,13 @@ public class MachineRouter extends BlockDummyable {
 	public int getOffset() {
 		return 0;
 	}
+
+	@Override
+public int getLightValue(net.minecraft.world.IBlockAccess world, int x, int y, int z) {
+    TileEntity tile = world.getTileEntity(x, y, z);
+    if (tile instanceof TileEntityMachineRouter) {
+        return ((TileEntityMachineRouter) tile).isOn ? 10 : 0;
+    }
+    return 0;
+}
 }
