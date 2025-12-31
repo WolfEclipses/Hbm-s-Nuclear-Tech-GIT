@@ -1,0 +1,15 @@
+{
+	"name": "Heavy Oil",
+	"icon": ["hbm:item.fluid_icon", 1, 12],
+	"trigger": [],
+	"title": {
+		"en_US": "Heavy Oil",
+		"ru_RU": "Тяжелая нефть",
+		"zh_CN": "重油"
+	},
+	"content": {
+  		"en_US": "<br><br>See also:<br>[[Basic Oil Processing]]<br>[[Advanced Oil Processing]]<br>[[Vacuum Oil Processing]]",
+  		"ru_RU": "<br><br>См. также:<br>[[Базовая нефтепереработка|Basic Oil Processing]]<br>[[Продвинутая нефтепереработка|Advanced Oil Processing]]<br>[[Вакуумная нефтепереработка|Vacuum Oil Processing]]",
+  		"zh_CN": "<br><br>另见：<br>[[基础石油处理|Basic Oil Processing]]<br>[[高级石油处理|Advanced Oil Processing]]<br>[[真空石油处理|Vacuum Oil Processing]]"
+	}
+}
