@@ -91,6 +91,7 @@ public class ResourceManager {
 
 	//Tank
 	public static final IModelCustom fluidtank = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/fluidtank.obj")).asVBO();
+	public static final IModelCustom fluidtank_vertical = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/fluidtank_vertical.obj")).asVBO();
 	public static final IModelCustom fluidtank_exploded = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/fluidtank_exploded.obj")).asVBO();
 	public static final IModelCustom bat9000 = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/machines/bat9000.obj")).asVBO();
 	public static final IModelCustom bigasstank = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/machines/bigasstank.obj")).asVBO();

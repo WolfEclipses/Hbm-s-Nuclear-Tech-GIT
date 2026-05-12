@@ -994,6 +994,7 @@ public class ModBlocks {
 	public static Block machine_mixer;
 
 	public static Block machine_fluidtank;
+	public static Block machine_fluidtank_vertical;
 	public static Block machine_bat9000;
 	public static Block machine_bigasstank;
 	public static Block machine_orbus;
@@ -2209,6 +2210,7 @@ public class ModBlocks {
 		machine_purex = new MachinePUREX(Material.iron).setBlockName("machine_purex").setHardness(5.0F).setResistance(30.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel");
 		machine_mixer = new MachineMixer(Material.iron).setBlockName("machine_mixer").setHardness(5.0F).setResistance(30.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel");
 		machine_fluidtank = new MachineFluidTank(Material.iron).setBlockName("machine_fluidtank").setHardness(5.0F).setResistance(20.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel");
+		machine_fluidtank_vertical = new MachineFluidTankVertical(Material.iron).setBlockName("machine_fluidtank_vertical").setHardness(5.0F).setResistance(20.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel");
 		machine_bat9000 = new MachineBigAssTank9000(Material.iron).setBlockName("machine_bat9000").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel");
 		machine_bigasstank = new MachineBigAssTank().setBlockName("machine_bigasstank").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel");
 		machine_orbus = new MachineOrbus(Material.iron).setBlockName("machine_orbus").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab).setBlockTextureName(RefStrings.MODID + ":block_steel");
@@ -3255,6 +3257,7 @@ public class ModBlocks {
 		register(machine_arc_furnace);
 		register(machine_mixer);
 		register(machine_fluidtank);
+		register(machine_fluidtank_vertical);
 		register(machine_bat9000);
 		register(machine_bigasstank);
 		register(machine_orbus);
