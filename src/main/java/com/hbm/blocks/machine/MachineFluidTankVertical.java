@@ -53,13 +53,13 @@ public class MachineFluidTankVertical extends BlockDummyable implements IPersist
 
 	@Override
 	public int[] getDimensions() {
-		return new int[] {4, 0, 2, 0, 1, 1};
+		return new int[] {4, 0, 1, 1, 1, 1};
 		//return new int[] {2, 0, 1, 1, 4, 0};
 	}
 
 	@Override
 	public int getOffset() {
-		return 0;
+		return 1;
 	}
 
 	@Override
