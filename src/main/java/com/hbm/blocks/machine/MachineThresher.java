@@ -8,11 +8,13 @@ import com.hbm.blocks.ITooltipProvider;
 import com.hbm.inventory.fluid.FluidType;
 import com.hbm.items.machine.IItemFluidIdentifier;
 import com.hbm.tileentity.machine.TileEntityMachineAutosaw;
+import com.hbm.tileentity.machine.TileEntityMachineThresher;
 import com.hbm.util.i18n.I18nUtil;
 
 import api.hbm.block.IToolable;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -20,18 +22,19 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.Pre;
 
-public class MachineAutosaw extends BlockContainer implements ILookOverlay, ITooltipProvider, IToolable {
+public class MachineThresher extends BlockContainer implements ILookOverlay, ITooltipProvider, IToolable {
 
-	public MachineAutosaw() {
+	public MachineThresher() {
 		super(Material.iron);
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
-		return new TileEntityMachineAutosaw();
+		return new TileEntityMachineThresher();
 	}
 
 	@Override public int getRenderType() { return -1; }
@@ -45,10 +48,10 @@ public class MachineAutosaw extends BlockContainer implements ILookOverlay, IToo
 				
 			if(player.getHeldItem() != null && player.getHeldItem().getItem() instanceof IItemFluidIdentifier) {
 				
-				TileEntityMachineAutosaw saw = (TileEntityMachineAutosaw) world.getTileEntity(x, y, z);
+				TileEntityMachineThresher saw = (TileEntityMachineThresher) world.getTileEntity(x, y, z);
 				
 				FluidType type = ((IItemFluidIdentifier) player.getHeldItem().getItem()).getType(world, x, y, z, player.getHeldItem());
-				if(saw.acceptedFuels.contains(type)) {
+				if(TileEntityMachineAutosaw.acceptedFuels.contains(type)) {
 					saw.tank.setTankType(type);
 					saw.markDirty();
 					player.addChatComponentMessage(new ChatComponentText("Changed type to ").setChatStyle(new ChatStyle().setColor(EnumChatFormatting.YELLOW)).appendSibling(new ChatComponentTranslation(type.getConditionalName())).appendSibling(new ChatComponentText("!")));
@@ -61,6 +64,16 @@ public class MachineAutosaw extends BlockContainer implements ILookOverlay, IToo
 		
 		return true;
 	}
+	
+	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
+		int i = MathHelper.floor_double(player.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
+		
+		if(i == 0) world.setBlockMetadataWithNotify(x, y, z, 3, 2);
+		if(i == 1) world.setBlockMetadataWithNotify(x, y, z, 4, 2);
+		if(i == 2) world.setBlockMetadataWithNotify(x, y, z, 2, 2);
+		if(i == 3) world.setBlockMetadataWithNotify(x, y, z, 5, 2);
+	}
 
 	@Override
 	public boolean onScrew(World world, EntityPlayer player, int x, int y, int z, int side, float fX, float fY, float fZ, ToolType tool) {
@@ -68,8 +81,8 @@ public class MachineAutosaw extends BlockContainer implements ILookOverlay, IToo
 
 		TileEntity te = world.getTileEntity(x, y, z);
 
-		if(!(te instanceof TileEntityMachineAutosaw)) return false;
-		TileEntityMachineAutosaw saw = (TileEntityMachineAutosaw) te;
+		if(!(te instanceof TileEntityMachineThresher)) return false;
+		TileEntityMachineThresher saw = (TileEntityMachineThresher) te;
 
 		saw.isSuspended = !saw.isSuspended;
 		saw.markDirty();
@@ -81,9 +94,9 @@ public class MachineAutosaw extends BlockContainer implements ILookOverlay, IToo
 	public void printHook(Pre event, World world, int x, int y, int z) {
 		
 		TileEntity te = world.getTileEntity(x, y, z);
-		if(!(te instanceof TileEntityMachineAutosaw)) return;
+		if(!(te instanceof TileEntityMachineThresher)) return;
 		
-		TileEntityMachineAutosaw saw = (TileEntityMachineAutosaw) te;
+		TileEntityMachineThresher saw = (TileEntityMachineThresher) te;
 		
 		List<String> text = new ArrayList();
 		text.add(saw.tank.getTankType().getLocalizedName() + ": " + saw.tank.getFill() + "/" + saw.tank.getMaxFill() + "mB");

@@ -176,6 +176,7 @@ public class ResourceManager {
 
 	//Big Man Johnson
 	public static final IModelCustom autosaw = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/machines/autosaw.obj")).noSmooth().asVBO();
+	public static final IModelCustom thresher = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/machines/thresher.obj")).asVBO();
 
 	//Mining Drill
 	public static final IModelCustom mining_drill = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/machines/mining_drill.obj")).asVBO();
@@ -629,6 +630,7 @@ public class ResourceManager {
 
 	//Big Man Johnson
 	public static final ResourceLocation autosaw_tex = new ResourceLocation(RefStrings.MODID, "textures/models/machines/autosaw.png");
+	public static final ResourceLocation thresher_tex = new ResourceLocation(RefStrings.MODID, "textures/models/machines/thresher.png");
 
 	//Mining Drill
 	public static final ResourceLocation mining_drill_tex = new ResourceLocation(RefStrings.MODID, "textures/models/machines/mining_drill.png");
@@ -910,6 +912,7 @@ public class ResourceManager {
 	public static final IModelCustom star_f = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/weapons/star_f.obj")).asVBO();
 	public static final IModelCustom g3 = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/weapons/g3.obj")).asVBO();
 	public static final IModelCustom stinger = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/weapons/stinger.obj")).asVBO();
+	public static final IModelCustom mk108 = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/weapons/mk108.obj")).asVBO();
 	public static final IModelCustom chemthrower = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/weapons/chemthrower.obj")).asVBO();
 	public static final IModelCustom amat = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/weapons/amat.obj")).asVBO();
 	public static final IModelCustom m2 = new HFRWavefrontObject(new ResourceLocation(RefStrings.MODID, "models/weapons/m2_browning.obj")).asVBO();
@@ -1022,6 +1025,7 @@ public class ResourceManager {
 	public static final ResourceLocation lilmac_scope_tex = new ResourceLocation(RefStrings.MODID, "textures/models/weapons/lilmac_scope.png");
 	public static final ResourceLocation carbine_tex = new ResourceLocation(RefStrings.MODID, "textures/models/weapons/huntsman.png");
 	public static final ResourceLocation carbine_bayonet_tex = new ResourceLocation(RefStrings.MODID, "textures/models/weapons/carbine_bayonet.png");
+	public static final ResourceLocation carbine_scope_tex = new ResourceLocation(RefStrings.MODID, "textures/models/weapons/carbine_scope.png");
 	public static final ResourceLocation am180_tex = new ResourceLocation(RefStrings.MODID, "textures/models/weapons/am180.png");
 	public static final ResourceLocation liberator_tex = new ResourceLocation(RefStrings.MODID, "textures/models/weapons/liberator.png");
 	public static final ResourceLocation flamethrower_tex = new ResourceLocation(RefStrings.MODID, "textures/models/weapons/flamethrower.png");
@@ -1038,6 +1042,7 @@ public class ResourceManager {
 	public static final ResourceLocation g3_green_tex = new ResourceLocation(RefStrings.MODID, "textures/models/weapons/g3_polymer_green.png");
 	public static final ResourceLocation g3_black_tex = new ResourceLocation(RefStrings.MODID, "textures/models/weapons/g3_polymer_black.png");
 	public static final ResourceLocation g3_attachments = new ResourceLocation(RefStrings.MODID, "textures/models/weapons/g3_attachments.png");
+	public static final ResourceLocation mk108_tex = new ResourceLocation(RefStrings.MODID, "textures/models/weapons/mk108.png");
 	public static final ResourceLocation amat_tex = new ResourceLocation(RefStrings.MODID, "textures/models/weapons/amat.png");
 	public static final ResourceLocation amat_subtlety_tex = new ResourceLocation(RefStrings.MODID, "textures/models/weapons/amat_subtlety.png");
 	public static final ResourceLocation amat_penance_tex = new ResourceLocation(RefStrings.MODID, "textures/models/weapons/amat_penance.png");

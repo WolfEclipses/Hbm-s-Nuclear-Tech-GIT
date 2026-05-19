@@ -184,6 +184,8 @@ armorMod.type.leggings=Leggings
 armorMod.type.servo=Servos
 armorMod.type.special=Special
 
+ass.nitra=Nitra to Ammunition
+
 autoswitch=Part of auto switch group "%s"$Recipe changes based on first ingredient
 autoswitch.pile=Reprocessing Chicago Pile Rods
 autoswitch.plate=Reprocessing Plate Fuel
@@ -2948,6 +2950,7 @@ item.gun_minigun.name=Minigun
 item.gun_minigun_dual.name=Dual Miniguns
 item.gun_minigun_lacunae.name=Lacunae
 item.gun_missile_launcher.name=Missile Launcher
+item.gun_mk108.name=Grenade Machinegun
 item.gun_n_i_4_n_i.name=N I 4 N I
 item.gun_pa_melee.name=Power Armor - Melee Controller
 item.gun_pa_ranged.name=Power Armor - Ranged Controller
@@ -5801,6 +5804,9 @@ tile.machine_storage_drum.name=Nuclear Waste Disposal Drum
 tile.machine_strand_caster.name=Strand Caster
 tile.machine_telelinker.name=Turret Telemetry Linker
 tile.machine_teleporter.name=Teleporter
+tile.machine_thresher.name=Automatic Thresher
+tile.machine_thresher.desc=Harvests and re-plants crops.$Accepts:$-Wood oil$-Ethanol$-Fish oil$-Heavy oil$-Coal Tar Creosote
+tile.machine_thresher.suspended=Suspended
 tile.machine_tower_large.name=Cooling Tower
 tile.machine_tower_small.name=Auxiliary Cooling Tower
 tile.machine_transformer.name=10k-20Hz Transformer

@@ -4,7 +4,6 @@ import com.hbm.inventory.container.ContainerPneumoStorageClutter;
 import com.hbm.inventory.fluid.Fluids;
 import com.hbm.inventory.fluid.tank.FluidTank;
 import com.hbm.inventory.gui.GUIPneumoStorageClutter;
-import com.hbm.lib.Library;
 import com.hbm.tileentity.IGUIProvider;
 import com.hbm.tileentity.TileEntityMachineBase;
 import com.hbm.tileentity.network.pneumatic.TileEntityPneumoTube.PneumaticNode;
@@ -12,23 +11,25 @@ import com.hbm.uninos.UniNodespace;
 import com.hbm.uninos.networkproviders.PneumaticNetwork;
 import com.hbm.uninos.networkproviders.PneumaticNetworkProvider;
 import com.hbm.util.fauxpointtwelve.BlockPos;
-import com.hbm.util.fauxpointtwelve.DirPos;
 
 import api.hbm.fluidmk2.IFluidStandardReceiverMK2;
+import api.hbm.ntl.IPneumaticConnector;
 import api.hbm.ntl.ISlotMonitorProvider;
 import api.hbm.ntl.SlotMonitor;
 import api.hbm.ntl.StackCache;
+import api.hbm.ntl.StackCache.CacheSlot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class TileEntityPneumoStorageClutter extends TileEntityMachineBase implements IFluidStandardReceiverMK2, ISlotMonitorProvider, IGUIProvider {
+public class TileEntityPneumoStorageClutter extends TileEntityMachineBase implements IPneumaticConnector, IFluidStandardReceiverMK2, ISlotMonitorProvider, IGUIProvider {
 	
 	public FluidTank compair;
 	public SlotMonitor[] monitors;
 	
 	protected PneumaticNode node;
+	protected boolean wasAvailable = false;
 
 	public TileEntityPneumoStorageClutter() {
 		super(6 * 9);
@@ -48,29 +49,33 @@ public class TileEntityPneumoStorageClutter extends TileEntityMachineBase implem
 		
 		if(!worldObj.isRemote) {
 			
+			boolean isAvailable = this.isAvailable();
+			
+			if(isAvailable != wasAvailable) {
+				this.wasAvailable = isAvailable;
+				for(SlotMonitor monitor : monitors) monitor.availabilityHasChanged();
+			}
+			
 			if(this.node == null || this.node.expired) {
 				this.node = (PneumaticNode) UniNodespace.getNode(worldObj, xCoord, yCoord, zCoord, PneumaticNetworkProvider.THE_PROVIDER);
 				
 				if(this.node == null || this.node.expired) {
-					this.node = (PneumaticNode) new PneumaticNode(new BlockPos(xCoord, yCoord, zCoord)).setConnections(
-							new DirPos(xCoord + 1, yCoord, zCoord, Library.POS_X),
-							new DirPos(xCoord - 1, yCoord, zCoord, Library.NEG_X),
-							new DirPos(xCoord, yCoord + 1, zCoord, Library.POS_Y),
-							new DirPos(xCoord, yCoord - 1, zCoord, Library.NEG_Y),
-							new DirPos(xCoord, yCoord, zCoord + 1, Library.POS_Z),
-							new DirPos(xCoord, yCoord, zCoord - 1, Library.NEG_Z)
-							);
+					this.node = (PneumaticNode) new PneumaticNode(new BlockPos(xCoord, yCoord, zCoord)).setStandardConnections(xCoord, yCoord, zCoord);
 					UniNodespace.createNode(worldObj, this.node);
 				}
 			}
 			
 			if(node != null && !node.expired && node.hasValidNet()) {
-				this.node.net.storages.put(this, worldObj.getTotalWorldTime());
+				this.node.net.storages.add(this);
 			}
 			
 			this.updateMonitors();
 			this.networkPackNT(15);
 		}
+	}
+	
+	public boolean isAvailable() {
+		return this.isLoaded && !this.isInvalid();
 	}
 
 	@Override
@@ -78,7 +83,17 @@ public class TileEntityPneumoStorageClutter extends TileEntityMachineBase implem
 		super.invalidate();
 
 		if(!worldObj.isRemote) {
+			
+			for(SlotMonitor monitor : this.monitors) {
+				for(CacheSlot cache : monitor.viewedBy) cache.removeMonitor(monitor);
+			}
+			
 			if(this.node != null) {
+				
+				if(node.hasValidNet()) {
+					this.node.net.storages.remove(this);
+				}
+				
 				UniNodespace.destroyNode(worldObj, xCoord, yCoord, zCoord, PneumaticNetworkProvider.THE_PROVIDER);
 			}
 		}
@@ -87,7 +102,12 @@ public class TileEntityPneumoStorageClutter extends TileEntityMachineBase implem
 	@Override
 	public void onChunkUnload() {
 		super.onChunkUnload();
-		if(node != null && !node.expired && node.hasValidNet()) {
+		
+		for(SlotMonitor monitor : this.monitors) {
+			for(CacheSlot cache : monitor.viewedBy) cache.removeMonitor(monitor);
+		}
+		
+		if(node != null && node.hasValidNet()) {
 			this.node.net.storages.remove(this);
 		}
 	}
@@ -119,6 +139,6 @@ public class TileEntityPneumoStorageClutter extends TileEntityMachineBase implem
 
 	@Override
 	public boolean isAvailableToCache(StackCache cache) {
-		return true;
+		return this.isLoaded && !this.isInvalid();
 	}
 }
