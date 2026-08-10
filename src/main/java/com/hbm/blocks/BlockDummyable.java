@@ -251,14 +251,6 @@ public abstract class BlockDummyable extends BlockContainer implements ICustomBl
 		return dir;
 	}
 
-	protected boolean checkRequirement(World world, int x, int y, int z, ForgeDirection dir, int o) {
-		return MultiblockHandlerXR.checkSpace(world, x + dir.offsetX * o, y + dir.offsetY * o, z + dir.offsetZ * o, getDimensions(), x, y, z, dir);
-	}
-
-	protected void fillSpace(World world, int x, int y, int z, ForgeDirection dir, int o) {
-		MultiblockHandlerXR.fillSpace(world, x + dir.offsetX * o, y + dir.offsetY * o, z + dir.offsetZ * o, getDimensions(), this, dir);
-	}
-
 	// "upgrades" regular dummy blocks to ones with the extra flag
 	public void makeExtra(World world, int x, int y, int z) {
 
@@ -357,13 +349,6 @@ public abstract class BlockDummyable extends BlockContainer implements ICustomBl
 	@Override public int getRenderType() { return -1; }
 	@Override public boolean isOpaqueCube() { return false; }
 	@Override public boolean renderAsNormalBlock() { return false; }
-
-	/**
-	 * @returns an int array with six fields, describing the amount of dummy blocks in each direction around the core. order is UP, DOWN, FORWARD, BACKWARD, LEFT, RIGHT
-	 */
-	public abstract int[] getDimensions();
-
-	public abstract int getOffset();
 
 	public int getHeightOffset() {
 		return 0;
@@ -573,6 +558,214 @@ public abstract class BlockDummyable extends BlockContainer implements ICustomBl
 		return meta;
 	}
 
+
+
+
+//I cant remove this until I finish every machine or they all shit themselves while holding hands
+	/**
+	 * @returns an int array with six fields, describing the amount of dummy blocks in each direction around the core. order is UP, DOWN, FORWARD, BACKWARD, LEFT, RIGHT
+	 */
+	public abstract int[] getDimensions();
+
+	public abstract int getOffset();
+/*
+	protected boolean checkRequirement(World world, int x, int y, int z, ForgeDirection dir, int o) {
+		return MultiblockHandlerXR.checkSpace(world, x + dir.offsetX * o, y + dir.offsetY * o, z + dir.offsetZ * o, getDimensions(), x, y, z, dir);
+	}
+
+	protected void fillSpace(World world, int x, int y, int z, ForgeDirection dir, int o) {
+		MultiblockHandlerXR.fillSpace(world, x + dir.offsetX * o, y + dir.offsetY * o, z + dir.offsetZ * o, getDimensions(), this, dir);
+	}
+
+	public int[][] getAllDimensions() {
+		return new int[][] { getDimensions() };
+	}
+
+	public static class dummyPos {
+		final int x;
+		final int y;
+		final int z;
+		final int meta;
+		final boolean extra;
+		final ForgeDirection dir;
+
+		public dummyPos(int x, int y, int z, ForgeDirection dir) {
+			this(x, y, z, dir, false, 0);
+		}
+
+		public dummyPos(int x, int y, int z, ForgeDirection dir, boolean extra, int meta) {
+			this.x = x;
+			this.y = y;
+			this.z = z;
+			this.dir = dir;
+			this.extra = extra;
+			this.meta = meta;
+		}
+	}
+*/
+
+//Im going to reorganize this, but bugfixing accross the file is something I am tired of doing.
+
+
+	//So if someone comes up with fancy ass shapes that I dont want to deal with feel free, Im not going to right now.
+	public enum hullShapes{
+		RECT,
+		CIRCLE
+	}
+	//AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+	public static class dummyPos {
+		final int x;
+		final int y;
+		final int z;
+		final int meta;
+		final boolean extra;
+		final Block block;
+		final hullShapes shape;
+		final boolean check;
+		ForgeDirection dir;
+
+		public dummyPos(int x, int y, int z, ForgeDirection dir) {
+			this(x, y, z, dir, false, 0, null, hullShapes.RECT, true);
+		}
+
+		public dummyPos(int x, int y, int z, ForgeDirection dir, boolean extra, int meta) {
+			this(x, y, z, dir, extra, meta, null, hullShapes.RECT, true);
+		}
+
+		public dummyPos(int x, int y, int z, ForgeDirection dir, boolean extra, int meta, Block block) {
+			this(x, y, z, dir, extra, meta, block, hullShapes.RECT, true);
+		}
+
+		public dummyPos(int x, int y, int z, ForgeDirection dir, boolean extra, int meta, Block block, hullShapes shape, boolean check) {
+			this.x = x;
+			this.y = y;
+			this.z = z;
+			this.dir = null;
+			this.extra = extra;
+			this.meta = meta;
+			this.block = block;
+			this.shape = shape;
+			this.check = check;
+		}
+	}
+
+	//5 trillion overloads go! (this is a poke*** reference (censored cause I dont want to die in my sleep))
+		//This comment was before I reworked this the 5th time, it is however, still funny in my mind so...
+	public static dummyPos[] hullExtraBlock(int x, int y, int z, boolean check){
+		return (
+			new dummyPos[] {new dummyPos(-x,y,z, ForgeDirection.UNKNOWN, true, 0, null, hullShapes.RECT, check)}
+		);
+	}
+
+	public dummyPos[] hullSingleBlock(int x, int y, int z, boolean extra, boolean check) {
+		return new dummyPos[] {
+			new dummyPos(-x, y, z, ForgeDirection.UNKNOWN, extra, 0, this, hullShapes.RECT, check)
+		};
+	}
+
+	//This is a draft so ima name it whatever the fuck I want (this is the same its always been btw, just fun :P)
+	public static dummyPos[] hullRect(int upsies, int downsies, int towardsme, int awayfromme, int lefty, int righty, boolean check){
+		List<dummyPos> hull = new ArrayList<>();
+		for(int x = -awayfromme; x <= towardsme; x++){
+			for(int y = -downsies; y <= upsies; y++){
+				for(int z = -lefty; z <= righty; z++){
+					hull.add(new dummyPos(x,y,z, ForgeDirection.UNKNOWN, false, 0, null, hullShapes.RECT, check));
+				}
+			}
+		}
+		return hull.toArray(new dummyPos[0]);
+	}
+
+
+	//This was surprisingly, not that bad
+	public static dummyPos[] combineHulls(dummyPos[]... hulls){
+		List<dummyPos> hull = new ArrayList<>();
+		for(dummyPos[] h : hulls){
+			for(dummyPos positions : h){
+				hull.add(positions);
+			}
+		}
+		return hull.toArray(new dummyPos[0]);
+	}
+
+	//AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+	public dummyPos[] getHulls() {
+		return new dummyPos[0];
+	}
+
+	protected boolean checkRequirement(World world, int x, int y, int z, ForgeDirection dir, int o) {
+		int dX = x + dir.offsetX * o;
+		int dY = y + dir.offsetY * o;
+		int dZ = z + dir.offsetZ * o;
+		ForgeDirection rot = dir.getRotation(ForgeDirection.UP);
+
+		for (dummyPos hull : getHulls()) {
+			int ddX = dX - dir.offsetX * hull.x - rot.offsetX * hull.z;
+			int ddY = dY + hull.y;
+			int ddZ = dZ - dir.offsetZ * hull.x - rot.offsetZ * hull.z;
+
+			if (ddX == x && ddY == y && ddZ == z){
+				continue;
+			}
+			if (!hull.check) {
+				continue;
+			}
+
+			//THIS FUCKING NOT SIGN MADE ME LOSE MY MIND FOR 2 HOURS, DIE WHERE YOU STAND EXCLAMATION POINT
+			if (!world.getBlock(ddX, ddY, ddZ).isReplaceable(world, ddX, ddY, ddZ)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	//Worst function of all time, for some reason this shit was so hard and I dont know whyyyyy
+	protected void fillSpace(World world, int x, int y, int z, ForgeDirection dir, int o) {
+		int dx = x + dir.offsetX * o;
+		int dy = y + dir.offsetY * o;
+		int dz = z + dir.offsetZ * o;
+		ForgeDirection rot = dir.getRotation(ForgeDirection.UP);
+		int meta;
+		safeRem = true;
+
+		for(dummyPos hull : getHulls()) {
+			int ddx = dx - dir.offsetX * hull.x - rot.offsetX * hull.z;
+			int ddy = dy + hull.y;
+			int ddz = dz - dir.offsetZ * hull.x - rot.offsetZ * hull.z;
+
+			if (hull.block != null) {
+
+				world.setBlock(ddx, ddy, ddz, hull.block, hull.block == this ? dir.ordinal() : hull.meta, 3);
+
+				if (hull.extra){
+					makeExtra(world, ddx, ddy, ddz);
+				}
+				continue;
+			}
+
+			if(ddx == dx && ddy == dy && ddz == dz){ 
+				continue;
+			}
+			if(ddy < dy) meta = ForgeDirection.DOWN.ordinal();
+			else if(ddy > dy) meta = ForgeDirection.UP.ordinal();
+			else if(ddx < dx) meta = ForgeDirection.WEST.ordinal();
+			else if(ddx > dx) meta = ForgeDirection.EAST.ordinal();
+			else if(ddz < dz) meta = ForgeDirection.NORTH.ordinal();
+			else if(ddz > dz) meta = ForgeDirection.SOUTH.ordinal();
+			else {
+				continue;
+			}
+
+			world.setBlock(ddx, ddy, ddz, this, meta, 3);
+
+			if(hull.extra) {
+				makeExtra(world, ddx, ddy, ddz);
+			}
+		}
+
+		safeRem = false;
+	}
+
 	public int[][] getAllDimensions() {
 		return new int[][] { getDimensions() };
 	}
@@ -637,32 +830,14 @@ public abstract class BlockDummyable extends BlockContainer implements ICustomBl
 			List<BlockPos> blocks = new java.util.ArrayList<>();
 			Set<BlockPos> set = new java.util.HashSet<>();
 
-			for(int[] dims : getAllDimensions()) {
-				// Some of the multiblocks have offsets for the placements, so
-				// this allows for the ones that dont need it to have a bunch of
-				// 0s at the end.
-				int offFwd = dims.length > 6 ? dims[6] : 0;
-				int offUp = dims.length > 7 ? dims[7] : 0;
-				int offLat = dims.length > 8 ? dims[8] : 0;
-				int worldOffX;
-				int worldOffY;
-				int worldOffZ;
-
-				worldOffY = offUp;
-				worldOffX = facing.offsetX * offFwd + facing.getRotation(ForgeDirection.UP).offsetX * offLat;
-				worldOffZ = facing.offsetZ * offFwd + facing.getRotation(ForgeDirection.UP).offsetZ * offLat;
-
-				int[] rot = MultiblockHandlerXR.rotate(dims, facing);
-				for(int bx = -rot[4] + worldOffX; bx <= rot[5] + worldOffX; bx++) {
-					for(int by = -rot[1] + worldOffY; by <= rot[0] + worldOffY; by++) {
-						for(int bz = -rot[2] + worldOffZ; bz <= rot[3] + worldOffZ; bz++) {
-							BlockPos bp = new BlockPos(MathHelper.floor_double(originX) + bx, MathHelper.floor_double(originY) + by, MathHelper.floor_double(originZ) + bz);
-							blocks.add(bp);
-							set.add(bp);
-						}
-					}
-
-				}
+			for (dummyPos hull : getHulls()) {
+				int worldX = MathHelper.floor_double(originX) - facing.offsetX * hull.x - facing.getRotation(ForgeDirection.UP).offsetX * hull.z;
+				int worldY = MathHelper.floor_double(originY) + hull.y;
+				int worldZ = MathHelper.floor_double(originZ) - facing.offsetZ * hull.x - facing.getRotation(ForgeDirection.UP).offsetZ * hull.z;
+				
+				BlockPos bp = new BlockPos(worldX, worldY, worldZ);
+				blocks.add(bp);
+				set.add(bp);
 			}
 			// This looks for the blocks nearby and draws lines between the
 			// vertexes to make different shaped boxes.
