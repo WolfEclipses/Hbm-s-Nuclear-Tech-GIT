@@ -72,7 +72,7 @@ public class GUIAnvil extends GuiInfoContainer {
 		super.initGui();
 
 		Keyboard.enableRepeatEvents(true);
-		this.search = new GuiTextField(this.fontRendererObj, guiLeft + 10, guiTop + 111, 84, 12);
+		this.search = new GuiTextField(this.fontRendererObj, guiLeft + 10, guiTop + 103, 84, 12);
 		this.search.setTextColor(-1);
 		this.search.setDisabledTextColour(-1);
 		this.search.setEnableBackgroundDrawing(false);
@@ -179,7 +179,7 @@ public class GUIAnvil extends GuiInfoContainer {
 
 		this.search.mouseClicked(x, y, k);
 		
-		if(guiLeft + 7 <= x && guiLeft + 7 + 9 > x && guiTop + 71 < y && guiTop + 71 + 36 >= y) {
+		if(guiLeft + 7 <= x && guiLeft + 7 + 9 > x && guiTop + 61 < y && guiTop + 61 + 36 >= y) {
 			mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
 			if(this.index > 0)
 				this.index--;
@@ -187,7 +187,7 @@ public class GUIAnvil extends GuiInfoContainer {
 			return;
 		}
 		
-		if(guiLeft + 106 <= x && guiLeft + 106 + 9 > x && guiTop + 71 < y && guiTop + 71 + 36 >= y) {
+		if(guiLeft + 106 <= x && guiLeft + 106 + 9 > x && guiTop + 61 < y && guiTop + 61 + 36 >= y) {
 			mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
 			if(this.index < this.size)
 				this.index++;
@@ -195,7 +195,7 @@ public class GUIAnvil extends GuiInfoContainer {
 			return;
 		}
 		
-		if(guiLeft + 52 <= x && guiLeft + 52 + 18 > x && guiTop + 53 < y && guiTop + 53 + 18 >= y) {
+		if(guiLeft + 52 <= x && guiLeft + 52 + 18 > x && guiTop + 43 < y && guiTop + 43 + 18 >= y) {
 
 			if(this.selection == -1)
 				return;
@@ -206,7 +206,7 @@ public class GUIAnvil extends GuiInfoContainer {
 			return;
 		}
 
-		if(guiLeft + 88 <= x && guiLeft + 88 + 18 > x && guiTop + 53 < y && guiTop + 53 + 18 >= y) {
+		if(guiLeft + 88 <= x && guiLeft + 88 + 18 > x && guiTop + 43 < y && guiTop + 43 + 18 >= y) {
 			mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
 			AnvilRecipes.OverlayType[] values = AnvilRecipes.OverlayType.values();
 			this.state = values[(this.state.ordinal() + 1) % values.length];
@@ -227,7 +227,7 @@ public class GUIAnvil extends GuiInfoContainer {
 			int ind = i - index * 2;
 
 			int ix = 16 + 18 * (ind / 2);
-			int iy = 71 + 18 * (ind % 2);
+			int iy = 63 + 18 * (ind % 2);
 			if(guiLeft + ix <= x && guiLeft + ix + 18 > x && guiTop + iy < y && guiTop + iy + 18 >= y) {
 
 				if(this.selection != i)
@@ -402,7 +402,7 @@ public class GUIAnvil extends GuiInfoContainer {
 		while(true) {
 
 			if(slide >= 51 * mul) {
-				this.drawTexturedModalRect(guiLeft + 125 + 51 * mul, guiTop + 17, 125, 17, 54, 108);
+				this.drawTexturedModalRect(guiLeft + 125 + 51 * mul, guiTop + 9, 125, 9, 54, 108);
 				mul++;
 
 			} else {
@@ -410,38 +410,38 @@ public class GUIAnvil extends GuiInfoContainer {
 			}
 		}
 
-		this.drawTexturedModalRect(guiLeft + 125 + slide, guiTop + 17, 125, 17, 54, 108);
+		this.drawTexturedModalRect(guiLeft + 125 + slide, guiTop + 9, 125, 9, 54, 108);
 
 		if(this.search.isFocused()) {
-			drawTexturedModalRect(guiLeft + 8, guiTop + 108, 168, 222, 88, 16);
+			drawTexturedModalRect(guiLeft + 8, guiTop + 100, 168, 222, 88, 16);
 		}
 
-		if(guiLeft + 7 <= mX && guiLeft + 7 + 9 > mX && guiTop + 71 < mY && guiTop + 71 + 36 >= mY) {
-			drawTexturedModalRect(guiLeft + 7, guiTop + 71, 176, 186, 9, 36);
+		if(guiLeft + 7 <= mX && guiLeft + 7 + 9 > mX && guiTop + 63 < mY && guiTop + 63 + 36 >= mY) {
+			drawTexturedModalRect(guiLeft + 7, guiTop + 63, 176, 186, 9, 36);
 		}
-		if(guiLeft + 106 <= mX && guiLeft + 106 + 9 > mX && guiTop + 71 < mY && guiTop + 71 + 36 >= mY) {
-			drawTexturedModalRect(guiLeft + 106, guiTop + 71, 185, 186, 9, 36);
+		if(guiLeft + 106 <= mX && guiLeft + 106 + 9 > mX && guiTop + 63 < mY && guiTop + 63 + 36 >= mY) {
+			drawTexturedModalRect(guiLeft + 106, guiTop + 63, 185, 186, 9, 36);
 		}
-		if(guiLeft + 52 <= mX && guiLeft + 52 + 18 > mX && guiTop + 53 < mY && guiTop + 53 + 18 >= mY) {
-			drawTexturedModalRect(guiLeft + 52, guiTop + 53, 176, 150, 18, 18);
+		if(guiLeft + 52 <= mX && guiLeft + 52 + 18 > mX && guiTop + 43 < mY && guiTop + 43 + 18 >= mY) {
+			drawTexturedModalRect(guiLeft + 52, guiTop + 43, 176, 150, 18, 18);
 		}
 		
 		if(this.state == AnvilRecipes.OverlayType.SMITHING) {
-			drawTexturedModalRect(guiLeft + 88, guiTop + 53, 200, 0, 18, 18);
-			if(guiLeft + 88 <= mX && guiLeft + 88 + 18 > mX && guiTop + 53 < mY && guiTop + 53 + 18 >= mY) {
-				drawTexturedModalRect(guiLeft + 88, guiTop + 53, 200, 18, 18, 18);
+			drawTexturedModalRect(guiLeft + 88, guiTop + 43, 200, 0, 18, 18);
+			if(guiLeft + 88 <= mX && guiLeft + 88 + 18 > mX && guiTop + 43 < mY && guiTop + 43 + 18 >= mY) {
+				drawTexturedModalRect(guiLeft + 88, guiTop + 43, 200, 18, 18, 18);
 			}
 		}
 		else if(this.state == AnvilRecipes.OverlayType.CONSTRUCTION) {
-			drawTexturedModalRect(guiLeft + 88, guiTop + 53, 218, 0, 18, 18);
-			if(guiLeft + 88 <= mX && guiLeft + 88 + 18 > mX && guiTop + 53 < mY && guiTop + 53 + 18 >= mY) {
-				drawTexturedModalRect(guiLeft + 88, guiTop + 53, 218, 18, 18, 18);
+			drawTexturedModalRect(guiLeft + 88, guiTop + 43, 218, 0, 18, 18);
+			if(guiLeft + 88 <= mX && guiLeft + 88 + 18 > mX && guiTop + 43 < mY && guiTop + 43 + 18 >= mY) {
+				drawTexturedModalRect(guiLeft + 88, guiTop + 43, 218, 18, 18, 18);
 			}
 		}
 		else if(this.state == AnvilRecipes.OverlayType.RECYCLING) {
-			drawTexturedModalRect(guiLeft + 88, guiTop + 53, 236, 0, 18, 18);
-			if(guiLeft + 88 <= mX && guiLeft + 88 + 18 > mX && guiTop + 53 < mY && guiTop + 53 + 18 >= mY) {
-				drawTexturedModalRect(guiLeft + 88, guiTop + 53, 236, 18, 18, 18);
+			drawTexturedModalRect(guiLeft + 88, guiTop + 43, 236, 0, 18, 18);
+			if(guiLeft + 88 <= mX && guiLeft + 88 + 18 > mX && guiTop + 43 < mY && guiTop + 43 + 18 >= mY) {
+				drawTexturedModalRect(guiLeft + 88, guiTop + 43, 236, 18, 18, 18);
 			}
 		}
 		/*if(guiLeft + 97 <= mX && guiLeft + 97 + 18 > mX && guiTop + 107 < mY && guiTop + 107 + 18 >= mY) {
@@ -467,17 +467,17 @@ public class GUIAnvil extends GuiInfoContainer {
 			if (font == null) font = fontRendererObj;
 
 			itemRender.zLevel = 100.0F;
-			itemRender.renderItemAndEffectIntoGUI(font, this.mc.getTextureManager(), recipe.getDisplay(), guiLeft + 17 + 18 * (ind / 2), guiTop + 72 + 18 * (ind % 2));
+			itemRender.renderItemAndEffectIntoGUI(font, this.mc.getTextureManager(), recipe.getDisplay(), guiLeft + 17 + 18 * (ind / 2), guiTop + 64 + 18 * (ind % 2));
 			itemRender.zLevel = 0.0F;
 
 			GL11.glEnable(GL11.GL_ALPHA_TEST);
 			GL11.glDisable(GL11.GL_LIGHTING);
 			this.mc.getTextureManager().bindTexture(texture);
 			this.zLevel = 300.0F;
-			this.drawTexturedModalRect(guiLeft + 16 + 18 * (ind / 2), guiTop + 71 + 18 * (ind % 2), 18 + 18 * recipe.getOverlay().ordinal(), 222, 18, 18);
+			this.drawTexturedModalRect(guiLeft + 16 + 18 * (ind / 2), guiTop + 63 + 18 * (ind % 2), 18 + 18 * recipe.getOverlay().ordinal(), 222, 18, 18);
 
 			if(selection == i)
-				this.drawTexturedModalRect(guiLeft + 16 + 18 * (ind / 2), guiTop + 71 + 18 * (ind % 2), 0, 222, 18, 18);
+				this.drawTexturedModalRect(guiLeft + 16 + 18 * (ind / 2), guiTop + 63 + 18 * (ind % 2), 0, 222, 18, 18);
 		}
 
 		this.search.drawTextBox();

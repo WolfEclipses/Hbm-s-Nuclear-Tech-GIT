@@ -23,9 +23,9 @@ public class ContainerAnvil extends Container {
 	public ContainerAnvil(InventoryPlayer inventory, int tier) {
 		this.tier = tier;
 		
-		this.addSlotToContainer(new SmithingSlot(input, 0, 17, 27));
-		this.addSlotToContainer(new SmithingSlot(input, 1, 53, 27));
-		this.addSlotToContainer(new SlotCraftingOutput(inventory.player, output, 0, 89, 27) {
+		this.addSlotToContainer(new SmithingSlot(input, 0, 17, 19));
+		this.addSlotToContainer(new SmithingSlot(input, 1, 53, 19));
+		this.addSlotToContainer(new SlotCraftingOutput(inventory.player, output, 0, 89, 19) {
 			
 			@Override
 			public void onPickupFromSlot(EntityPlayer player, ItemStack stack) {
